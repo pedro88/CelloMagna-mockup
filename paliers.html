@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>celloMagna — Nos formules</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .tiers {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+        align-items: stretch;
+      }
+      @media (max-width: 980px) {
+        .tiers {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 560px) {
+        .tiers {
+          grid-template-columns: 1fr;
+        }
+      }
+      .tier {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        padding: 30px 26px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        box-shadow: var(--shadow-sm);
+      }
+      .tier.featured {
+        border: 2px solid var(--terracotta-d);
+        box-shadow: var(--shadow);
+      }
+      .tier .badge {
+        position: absolute;
+        top: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--terracotta-d);
+        color: #fff;
+        font-weight: 800;
+        font-size: 0.72rem;
+        letter-spacing: 0.5px;
+        padding: 6px 16px;
+        border-radius: var(--r-pill);
+        text-transform: uppercase;
+      }
+      .tier h3 {
+        font-size: 1.5rem;
+      }
+      .price {
+        font-family: "Jost";
+        font-size: 2.4rem;
+        color: #111;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        margin: 8px 0 2px;
+      }
+      .price small {
+        font-size: 0.95rem;
+        color: #999;
+        font-weight: 400;
+        font-family: "DM Sans";
+      }
+      .tier ul {
+        list-style: none;
+        margin: 22px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+        flex: 1;
+      }
+      .tier li {
+        font-size: 0.96rem;
+        padding-left: 26px;
+        position: relative;
+        color: #222;
+      }
+      .tier li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--sage);
+        font-weight: 800;
+      }
+      .tier li.off {
+        color: #aaa;
+      }
+      .tier li.off::before {
+        content: "–";
+        color: #ccc;
+      }
+      .matrix {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: var(--r);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+      }
+      .matrix th,
+      .matrix td {
+        padding: 15px 16px;
+        text-align: center;
+        border-bottom: 1px solid var(--line);
+      }
+      .matrix th {
+        background: var(--parchment);
+        font-family: "Jost";
+        font-weight: 500;
+        color: #111;
+      }
+      .matrix td:first-child,
+      .matrix th:first-child {
+        text-align: left;
+        font-weight: 700;
+      }
+      .matrix .yes {
+        color: var(--sage);
+        font-weight: 800;
+      }
+      .matrix .no {
+        color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="note-banner">
+      MAQUETTE — tarifs d'illustration (~29 / 150 / 200 €), à figer avec Ambre
+    </div>
+
+    <header class="nav">
+      <div class="wrap">
+        <a class="brand" href="accueil.html"
+          ><img src="assets/logo/magnattitude-logo.png" alt="logo" />
+          celloMagna</a
+        >
+        <nav class="nav-links">
+          <a href="accueil.html">Accueil</a>
+          <a href="paliers.html" class="active">Tarifs</a>
+          <a href="parcours-realiste.html">Le parcours</a>
+          <a href="accueil.html#profs">L'équipe</a>
+          <a href="paliers.html" class="btn btn-primary btn-sm"
+            >Commencer gratuitement</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <section class="section" style="padding-bottom: 40px">
+      <div class="wrap center">
+        <span class="eyebrow">Nos formules</span>
+        <h1>Choisissez votre rythme.</h1>
+        <p class="lead center" style="margin: 16px auto 0">
+          Commencez gratuitement. Passez à la formule supérieure quand vous
+          voulez — le suivi humain en plus, à votre rythme.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding-bottom: 80px">
+      <div class="wrap">
+        <div class="tiers">
+          <!-- Découverte -->
+          <div class="tier">
+            <h3>Découverte</h3>
+            <div class="price">Gratuit</div>
+            <small style="color: #555">Pour tester sans risque</small>
+            <ul>
+              <li>2 cours d'appel offerts</li>
+              <li>Quelques partitions gratuites</li>
+              <li>Accès à la newsletter</li>
+              <li class="off">Parcours complet</li>
+              <li class="off">Certificats</li>
+              <li class="off">Suivi humain</li>
+            </ul>
+            <a href="parcours-realiste.html" class="btn btn-ghost"
+              >Créer mon compte</a
+            >
+          </div>
+
+          <!-- Basique -->
+          <div class="tier">
+            <h3>Basique</h3>
+            <div class="price">~29 €<small> /mois</small></div>
+            <small style="color: #555">Le parcours en autonomie</small>
+            <ul>
+              <li>Accès au parcours 5 niveaux</li>
+              <li>Toutes les vidéos & partitions</li>
+              <li>Accompagnements audio</li>
+              <li>Certificats de niveau</li>
+              <li class="off">Masterclass collectives</li>
+              <li class="off">Cours individuels</li>
+            </ul>
+            <a href="parcours-realiste.html" class="btn btn-ghost"
+              >Choisir Basique</a
+            >
+          </div>
+
+          <!-- Suivi -->
+          <div class="tier featured">
+            <span class="badge">Le plus choisi</span>
+            <h3>Suivi</h3>
+            <div class="price">~150 €<small> /mois</small></div>
+            <small style="color: #555">Le contenu + l'accompagnement</small>
+            <ul>
+              <li>Tout le palier Basique</li>
+              <li>Envoi de vos vidéos → retours</li>
+              <li>Masterclass collective mensuelle</li>
+              <li>Certificats de niveau</li>
+              <li>Communauté d'élèves</li>
+              <li class="off">Cours individuel privé</li>
+            </ul>
+            <a href="parcours-realiste.html" class="btn btn-primary"
+              >Choisir Suivi</a
+            >
+          </div>
+
+          <!-- Premium -->
+          <div class="tier">
+            <h3>Premium</h3>
+            <div class="price">~200 €<small> /mois</small></div>
+            <small style="color: #555">L'accompagnement sur-mesure</small>
+            <ul>
+              <li>Tout le palier Suivi</li>
+              <li>1 cours individuel /mois</li>
+              <li>Créneau réservé avec une prof</li>
+              <li>Retours prioritaires</li>
+              <li>Masterclass collectives</li>
+              <li>Certificats de niveau</li>
+            </ul>
+            <a href="parcours-realiste.html" class="btn btn-ghost"
+              >Choisir Premium</a
+            >
+          </div>
+        </div>
+        <p
+          class="center"
+          style="margin-top: 24px; font-size: 0.9rem; color: #555"
+        >
+          Paiement sécurisé par Bancontact, carte ou prélèvement SEPA · Sans
+          engagement, résiliable à tout moment
+        </p>
+      </div>
+    </section>
+
+    <!-- MATRICE -->
+    <section
+      class="section"
+      style="background: var(--parchment); padding: 70px 0"
+    >
+      <div class="wrap">
+        <div class="center" style="margin-bottom: 40px">
+          <span class="eyebrow">En détail</span>
+          <h2>Ce que débloque chaque formule</h2>
+        </div>
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Ressource</th>
+              <th>Découverte</th>
+              <th>Basique</th>
+              <th>Suivi</th>
+              <th>Premium</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cours d'appel + partitions gratuites</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Parcours complet (vidéos + PDF)</td>
+              <td class="no">–</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Certificats de niveau</td>
+              <td class="no">–</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Envoi vidéo → retour personnalisé</td>
+              <td class="no">–</td>
+              <td class="no">–</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Masterclass collective mensuelle</td>
+              <td class="no">–</td>
+              <td class="no">–</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Cours individuel mensuel</td>
+              <td class="no">–</td>
+              <td class="no">–</td>
+              <td class="no">–</td>
+              <td class="yes">✓</td>
+            </tr>
+          </tbody>
+        </table>
+        <p
+          class="center"
+          style="margin-top: 18px; font-size: 0.85rem; color: #555"
+        >
+          Le périmètre exact du palier « Basique » reste à confirmer (OPEN-05).
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap cols">
+        <div>
+          <div class="brand" style="color: #fff; margin-bottom: 10px">
+            <img src="assets/logo/magnattitude-logo.png" alt="" /> celloMagna
+          </div>
+          <p style="color: #888; max-width: 34ch; font-size: 0.92rem">
+            Cours de violoncelle en ligne par l'ASBL MagnAttitude. Grivegnée,
+            Liège.
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 1rem; margin-bottom: 10px">
+            Naviguer
+          </h4>
+          <p>
+            <a href="accueil.html">Accueil</a><br /><a href="paliers.html"
+              >Tarifs</a
+            ><br /><a href="parcours-realiste.html">Le parcours</a>
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 1rem; margin-bottom: 10px">
+            Contact
+          </h4>
+          <p style="color: #888; font-size: 0.92rem">
+            magnattitudeasbl@gmail.com<br />+32 487 02 82 45
+          </p>
+        </div>
+      </div>
+      <div
+        class="wrap"
+        style="
+          margin-top: 34px;
+          border-top: 1px solid #222;
+          padding-top: 18px;
+          font-size: 0.82rem;
+          color: #666;
+        "
+      >
+        © 2026 MagnAttitude ASBL — maquette de présentation
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1827 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>celloMagna — Apprenez le violoncelle en ligne</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Adobe Fonts — remplacer XXXXXXX par votre kit ID pour activer europa + sophia-pro exactement -->
+    <!-- <link rel="stylesheet" href="https://use.typekit.net/XXXXXXX.css"> -->
+
+    <!-- Fallback Google Fonts : Jost ≈ Europa Regular, DM Sans ≈ Sophia Pro Regular -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ================================================================
+   ACCUEIL — Style Amaeya (couleurs exactes du PNG)
+   Blanc · Noir · Orange #F4471F · Lavande #F0C987
+   Syne 800 + DM Sans
+   ================================================================ */
+
+      /* Palette Amaeya */
+      :root {
+        --maxw: 1080px;
+        --am-white: #ffffff;
+        --am-black: #111111;
+        --am-gray: #f3f3f3;
+        --am-gray2: #eeeeee;
+        --am-orange: #f4471f;
+        --am-orange-d: #d2360f;
+        --am-lav: #f0c987;
+        --am-lav-d: #c8902f;
+        --am-lav-pale: #fbf1dc;
+        --am-line: #e8e8e8;
+        --am-text: #111111;
+        --am-muted: #999999;
+        --am-sub: #555555;
+      }
+
+      body {
+        background: #ffffff;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        color: #111111;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #111111;
+        font-weight: 400; /* Regular comme demandé */
+        font-family: "europa", "Jost", sans-serif;
+        letter-spacing: -0.01em;
+      }
+
+      /* ================================================================
+   NAV
+   ================================================================ */
+      .am-nav {
+        border-bottom: 1px solid var(--am-line);
+        background: #ffffff;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .am-nav-inner {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 16px 24px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .am-brand {
+        font-family: "europa", "Jost", sans-serif;
+        font-weight: 500;
+        font-size: 1.5rem;
+        letter-spacing: -0.02em;
+        color: var(--am-black);
+        text-decoration: none;
+        flex-shrink: 0;
+        display: flex;
+        align-items: flex-start;
+      }
+      .am-brand .o {
+        color: var(--am-orange);
+      }
+      .am-brand sup {
+        font-size: 0.5rem;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        color: var(--am-black);
+        margin-top: 0.35em;
+        margin-left: 1px;
+      }
+      .am-search {
+        flex: 1;
+        max-width: 420px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--am-gray);
+        border: 1px solid var(--am-line);
+        border-radius: 999px;
+        padding: 9px 14px;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-size: 0.9rem;
+        color: var(--am-muted);
+        cursor: text;
+      }
+      .am-search .wave {
+        display: flex;
+        align-items: center;
+        gap: 1.5px;
+        flex: none;
+      }
+      .am-search .wave i {
+        display: block;
+        width: 2px;
+        border-radius: 2px;
+        background: var(--am-black);
+      }
+      .am-search .wave i:nth-child(1) {
+        height: 7px;
+      }
+      .am-search .wave i:nth-child(2) {
+        height: 13px;
+      }
+      .am-search .wave i:nth-child(3) {
+        height: 18px;
+      }
+      .am-search .wave i:nth-child(4) {
+        height: 10px;
+      }
+      .am-search .wave i:nth-child(5) {
+        height: 14px;
+      }
+      .am-search .ph {
+        flex: 1;
+      }
+      .am-search .mag {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        color: #555;
+        flex: none;
+      }
+      .am-mic {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--am-gray);
+        border: 1px solid var(--am-line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        font-size: 0.95rem;
+      }
+      .am-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+        margin-left: auto;
+      }
+      .am-authors {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        background: #fff;
+        border: 1px solid var(--am-line);
+        border-radius: 999px;
+        padding: 4px 14px 4px 6px;
+      }
+      .am-avatars {
+        display: flex;
+      }
+      .am-avatars span {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        overflow: hidden;
+        margin-left: -9px;
+        background: var(--am-lav);
+      }
+      .am-avatars span:first-child {
+        margin-left: 0;
+      }
+      .am-avatars img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .am-authors b {
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        color: var(--am-black);
+        font-weight: 700;
+      }
+      .am-login {
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--am-black);
+        text-decoration: none;
+        background: #fff;
+        border: 1px solid var(--am-line);
+        border-radius: 999px;
+        padding: 9px 20px;
+      }
+      .am-join {
+        background: var(--am-lav);
+        color: var(--am-black);
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-weight: 800;
+        font-size: 0.9rem;
+        padding: 9px 20px;
+        border-radius: 999px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.18s;
+      }
+      .am-join:hover {
+        background: var(--am-lav-d);
+        color: #fff;
+      }
+      @media (max-width: 880px) {
+        .am-search,
+        .am-mic,
+        .am-authors,
+        .am-login {
+          display: none;
+        }
+      }
+
+      /* ================================================================
+   HERO : sidebar | headline géant (stat en haut à droite)
+   ================================================================ */
+      .am-hero {
+        border-bottom: 1px solid var(--am-line);
+        background: #ffffff;
+        padding: 22px 0 50px;
+      }
+      .am-hero-grid {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0 24px;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 36px;
+        align-items: start;
+      }
+      @media (max-width: 860px) {
+        .am-hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .am-hero-sidebar {
+          display: none;
+        }
+      }
+
+      /* Sidebar */
+      .am-hero-sidebar {
+        padding-top: 14px;
+      }
+      .am-aster {
+        color: var(--am-lav-d);
+        font-size: 1.5rem;
+        margin-bottom: 18px;
+        display: block;
+      }
+      .am-sidebar-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 30px;
+      }
+      .am-sidebar-links a {
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: var(--am-black);
+        padding: 2px 0;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .am-sidebar-links a.muted {
+        color: var(--am-muted);
+        font-weight: 600;
+      }
+      .am-sidebar-links a:hover,
+      .am-sidebar-links .active {
+        color: var(--am-orange);
+      }
+      .am-blog {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .am-blog img {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+        object-fit: cover;
+        flex: none;
+      }
+      .am-blog .lbl {
+        font-family: "europa", "Jost", sans-serif;
+        font-weight: 600;
+        font-size: 0.8rem;
+        letter-spacing: 0.02em;
+      }
+      .am-blog .sub {
+        font-size: 0.76rem;
+        color: var(--am-muted);
+        margin-bottom: 4px;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+      }
+      .am-blog .view {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        text-decoration: none;
+        color: var(--am-black);
+      }
+      .am-blog .view .a {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--am-orange);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.68rem;
+      }
+
+      /* Centre héro */
+      .am-hero-main {
+        position: relative;
+        padding-top: 4px;
+      }
+      .am-stat-box {
+        position: absolute;
+        top: 12px;
+        right: 0;
+        max-width: 290px;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-size: 0.92rem;
+        color: var(--am-sub);
+        line-height: 1.5;
+      }
+      .am-stat-box strong {
+        color: var(--am-orange);
+        font-weight: 800;
+      }
+      .am-headline {
+        font-family: "europa", "Jost", sans-serif;
+        font-size: clamp(2.8rem, 6.2vw, 6rem);
+        font-weight: 400; /* Regular — Europa/Sophia Pro regular */
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        color: #111111;
+      }
+      .am-headline .accent {
+        color: var(--am-lav-d);
+        font-style: italic;
+        font-weight: 300;
+      }
+      .am-headline .chev {
+        color: var(--am-lav-d);
+        font-weight: 500;
+        display: inline-block;
+        transform: translateY(-0.05em);
+        margin: 0 0.1em;
+        letter-spacing: -0.1em;
+      }
+      .am-work {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        background: var(--am-orange);
+        color: #fff;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-weight: 800;
+        font-size: 1.05rem;
+        padding: 9px 24px 9px 9px;
+        border-radius: 999px;
+        vertical-align: middle;
+        margin-left: 0.2em;
+        text-decoration: none;
+        box-shadow: 0 8px 22px -10px rgba(255, 80, 0, 0.5);
+        transition: background 0.18s;
+      }
+      .am-work:hover {
+        background: var(--am-orange-d);
+      }
+      .am-work .a {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #fff;
+        color: var(--am-orange);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex: none;
+      }
+      /* CTA pilule réutilisée (sections) */
+      .am-hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--am-orange);
+        color: #fff;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-weight: 800;
+        font-size: 0.92rem;
+        padding: 12px 20px;
+        border-radius: 999px;
+        text-decoration: none;
+        align-self: flex-start;
+        box-shadow: 0 6px 20px -8px rgba(255, 80, 0, 0.4);
+        transition: background 0.18s;
+      }
+      .am-hero-cta:hover {
+        background: var(--am-orange-d);
+      }
+
+      /* ================================================================
+   BENTO GRID (6 colonnes — tuile lavande centrale)
+   ================================================================ */
+      .am-bento {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 20px 24px 8px;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-auto-rows: 148px;
+        gap: 14px;
+      }
+      @media (max-width: 900px) {
+        .am-bento {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .bt {
+        border-radius: 18px;
+        padding: 22px;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      /* Couleurs Amaeya */
+      .bt-dark {
+        background: #111111;
+        color: #fff;
+      }
+      .bt-orange {
+        background: var(--am-orange);
+        color: #fff;
+      }
+      .bt-lav {
+        background: var(--am-lav);
+        color: #111;
+      }
+      .bt-lav-d {
+        background: var(--am-lav-d);
+        color: #fff;
+      }
+      .bt-lav-pale {
+        background: var(--am-lav-pale);
+        color: #111;
+      }
+      .bt-gray {
+        background: var(--am-gray);
+        color: #111;
+      }
+      .bt-white {
+        background: #fff;
+        border: 1px solid var(--am-line);
+        color: #111;
+      }
+
+      .bt-title {
+        font-family: "europa", "Jost", sans-serif;
+        font-weight: 400;
+        font-size: 1.05rem;
+        line-height: 1.18;
+        letter-spacing: -0.01em;
+        color: inherit;
+      }
+      .bt-text {
+        font-size: 0.84rem;
+        line-height: 1.45;
+        opacity: 0.9;
+        margin-top: 4px;
+        color: inherit;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+      }
+
+      /* placements (calque sur la maquette) — 3 grandes tuiles 2x2 en haut, 5 petites en bas */
+      .t-pills {
+        grid-column: span 2;
+        grid-row: span 2;
+        justify-content: center;
+        gap: 4px;
+      }
+      .t-feat {
+        grid-column: span 2;
+        grid-row: span 2;
+        justify-content: center;
+      }
+      .t-feat .bt-title {
+        font-size: 1.6rem;
+        line-height: 1.12;
+      }
+      .t-person {
+        grid-column: span 2;
+        grid-row: span 2;
+        padding: 0;
+      }
+      .t-note {
+        grid-column: span 1;
+        grid-row: span 1;
+        align-items: center;
+        justify-content: center;
+      }
+      .t-cello {
+        grid-column: span 1;
+        grid-row: span 1;
+        align-items: center;
+        justify-content: center;
+      }
+      .t-staff {
+        grid-column: span 2;
+        grid-row: span 1;
+        align-items: center;
+        justify-content: center;
+      }
+      .t-audio {
+        grid-column: span 1;
+        grid-row: span 1;
+        align-items: center;
+        justify-content: center;
+      }
+      .t-fork {
+        grid-column: span 1;
+        grid-row: span 1;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .bt-pill-o {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-bottom: 9px;
+        width: fit-content;
+      }
+      .bt-pill-o .pl {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #fff;
+        color: #141414;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+      }
+      .bt-person-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+      }
+      .bt-feat-eyebrow {
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        opacity: 0.8;
+        margin-bottom: 8px;
+      }
+      svg.deco {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ================================================================
+   SECTION HEADER
+   ================================================================ */
+      .am-section {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 64px 24px;
+      }
+      .am-section-top {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: end;
+        margin-bottom: 40px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--am-line);
+      }
+      @media (max-width: 680px) {
+        .am-section-top {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .am-section-num {
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 800;
+        color: var(--am-orange);
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+        display: block;
+      }
+      .am-section-h2 {
+        font-family: "europa", "Jost", sans-serif;
+        font-size: clamp(1.8rem, 3.5vw, 3rem);
+        font-weight: 400;
+        color: #111111;
+        line-height: 1.08;
+        letter-spacing: -0.01em;
+      }
+      .am-section-desc {
+        font-size: 0.95rem;
+        color: #555;
+        line-height: 1.7;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+      }
+      .am-section-desc strong {
+        color: var(--am-orange);
+      }
+
+      /* ================================================================
+   CARDS ÉQUIPE / CONTENU
+   ================================================================ */
+      .am-show-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      @media (max-width: 760px) {
+        .am-show-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .am-show-card {
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid var(--am-line);
+        background: #fff;
+        text-decoration: none;
+        color: inherit;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        display: flex;
+        flex-direction: column;
+      }
+      .am-show-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 40px -16px rgba(0, 0, 0, 0.15);
+      }
+
+      .am-show-thumb {
+        height: 160px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .am-show-thumb svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .am-show-thumb .thumb-ico {
+        position: relative;
+        z-index: 2;
+        font-size: 3.2rem;
+      }
+
+      .am-show-body {
+        padding: 18px 20px 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .am-show-body h3 {
+        font-family: "europa", "Jost", sans-serif;
+        font-weight: 400;
+        font-size: 1.1rem;
+        letter-spacing: -0.01em;
+        color: #111;
+        margin-bottom: 6px;
+      }
+      .am-show-body p {
+        font-size: 0.86rem;
+        color: #555;
+        flex: 1;
+        line-height: 1.55;
+      }
+      .am-show-role {
+        color: var(--am-orange);
+        font-size: 0.8rem;
+        font-weight: 800;
+        margin-bottom: 4px;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+      }
+      .am-read-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-weight: 800;
+        font-size: 0.82rem;
+        color: var(--am-orange);
+        margin-top: 14px;
+        text-decoration: none;
+      }
+      .am-arrow-box {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        background: var(--am-gray);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        color: var(--am-orange);
+        transition: background 0.15s;
+      }
+      .am-show-card:hover .am-arrow-box {
+        background: var(--am-orange);
+        color: #fff;
+      }
+
+      /* ================================================================
+   SECTION PARCOURS
+   ================================================================ */
+      .am-parcours {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 64px 24px;
+      }
+      .am-parcours-top {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+      @media (max-width: 700px) {
+        .am-parcours-top {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .am-parcours-tags {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .am-parcours-tag {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border: 1px solid var(--am-line);
+        border-radius: 8px;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-weight: 700;
+        font-size: 0.92rem;
+        color: #111;
+        background: #fff;
+        text-decoration: none;
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+      }
+      .am-parcours-tag:hover {
+        background: var(--am-lav-pale);
+        border-color: var(--am-lav);
+      }
+      .am-parcours-tag .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--am-orange);
+      }
+      .am-parcours-tag .tag-arrow {
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        background: var(--am-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        color: #555;
+      }
+
+      .am-circle-row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        overflow-x: auto;
+        padding: 8px 0;
+      }
+      .am-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+        border: 3px solid #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.4rem;
+      }
+      .am-circle img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .am-circle:not(:first-child) {
+        margin-left: -20px;
+      }
+
+      /* ================================================================
+   BROWSE BY LEVEL — titre géant lavande
+   ================================================================ */
+      .am-browse {
+        border-top: 1px solid var(--am-line);
+        padding: 60px 0 0;
+      }
+      .am-browse-title {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0 24px 40px;
+        font-family: "europa", "Jost", sans-serif;
+        font-size: clamp(3rem, 7vw, 7rem);
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        line-height: 1;
+        color: var(--am-lav); /* lavande exacte Amaeya */
+        letter-spacing: -1px;
+      }
+      .am-browse-title em {
+        color: var(--am-orange);
+        font-style: italic;
+      }
+
+      .am-level-list {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .am-level-item {
+        display: flex;
+        align-items: center;
+        padding: 22px 0;
+        border-top: 1px solid var(--am-line);
+        position: relative;
+        text-decoration: none;
+        color: inherit;
+        transition: background 0.15s;
+      }
+      .am-level-item:last-child {
+        border-bottom: 1px solid var(--am-line);
+      }
+      .am-level-num {
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: #bbb;
+        width: 48px;
+        flex-shrink: 0;
+        letter-spacing: 0.5px;
+      }
+      .am-level-name {
+        flex: 1;
+        font-family: "europa", "Jost", sans-serif;
+        font-size: clamp(1.8rem, 4vw, 3.2rem);
+        font-weight: 400;
+        color: #111;
+        letter-spacing: -0.01em;
+        transition: color 0.15s;
+      }
+      .am-level-item:hover .am-level-name {
+        color: var(--am-orange);
+      }
+      .am-level-count {
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #aaa;
+        margin-right: 18px;
+      }
+      .am-level-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--am-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        color: #555;
+        transition: background 0.15s;
+      }
+      .am-level-item:hover .am-level-icon {
+        background: var(--am-orange);
+        color: #fff;
+      }
+      .am-float-photo {
+        position: absolute;
+        right: 80px;
+        top: 50%;
+        transform: translateY(-50%) rotate(-4deg);
+        width: 110px;
+        height: 80px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        border: 3px solid #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        background: var(--am-gray);
+        pointer-events: none;
+      }
+      .am-float-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* ================================================================
+   CTA SECTION
+   ================================================================ */
+      .am-cta {
+        background: #111111;
+        padding: 80px 24px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .am-cta::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: rgba(200, 184, 255, 0.05);
+        pointer-events: none;
+      }
+      .am-cta .eyebrow {
+        color: var(--am-lav);
+        display: block;
+        margin-bottom: 14px;
+      }
+      .am-cta h2 {
+        font-family: "europa", "Jost", sans-serif;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        font-weight: 900;
+        color: #fff;
+        max-width: 18ch;
+        margin: 0 auto 20px;
+        line-height: 1.08;
+      }
+      .am-cta p {
+        color: rgba(255, 255, 255, 0.55);
+        max-width: 44ch;
+        margin: 0 auto 32px;
+        font-size: 1rem;
+      }
+      .am-cta a {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: var(--am-orange);
+        color: #fff;
+        font-family: "sophia-pro", "DM Sans", sans-serif;
+        font-weight: 800;
+        font-size: 1rem;
+        padding: 14px 30px;
+        border-radius: 999px;
+        box-shadow: 0 8px 24px rgba(255, 80, 0, 0.35);
+        text-decoration: none;
+        transition:
+          background 0.18s,
+          transform 0.15s;
+        position: relative;
+        z-index: 1;
+      }
+      .am-cta a:hover {
+        background: var(--am-orange-d);
+        transform: translateY(-2px);
+      }
+
+      /* Séparateur */
+      .full-border {
+        border-top: 1px solid var(--am-line);
+      }
+
+      /* Note banner */
+      .note-banner {
+        background: var(--am-lav);
+        color: #111;
+        text-align: center;
+        font-weight: 700;
+        font-size: 0.82rem;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="note-banner">
+      MAQUETTE — contenu et tarifs d'illustration, à valider avec Ambre
+    </div>
+
+    <!-- ================================================================
+     NAV
+================================================================ -->
+    <header class="am-nav">
+      <div class="am-nav-inner">
+        <a class="am-brand" href="accueil.html"
+          ><span class="o">cello</span>Magna<sup>®</sup></a
+        >
+        <div class="am-search">
+          <span class="ph">Rechercher un cours…</span>
+          <span class="mag">🔍</span>
+        </div>
+        <div class="am-actions">
+          <span class="am-authors">
+            <span class="am-avatars">
+              <span><img src="assets/photos/ambre-tamagna.jpg" alt="" /></span>
+              <span
+                ><img src="assets/photos/eva-pereira-bodin.jpg" alt=""
+              /></span>
+              <span
+                ><img src="assets/photos/anneline-depiereux.jpg" alt=""
+              /></span>
+            </span>
+            <b>3 professeures</b>
+          </span>
+          <a href="paliers.html" class="am-login">Connexion</a>
+          <a href="paliers.html" class="am-join">Commencer ↗</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================================================================
+     HERO : sidebar | headline géant | panel droit
+================================================================ -->
+    <section class="am-hero">
+      <div class="am-hero-grid">
+        <aside class="am-hero-sidebar">
+          <span class="am-aster">✳</span>
+          <nav class="am-sidebar-links">
+            <a href="parcours-realiste.html">Le parcours</a>
+            <a href="paliers.html" class="muted">Tarifs</a>
+            <a href="#profs" class="muted">L'équipe</a>
+          </nav>
+          <div class="am-blog">
+            <div></div>
+          </div>
+        </aside>
+
+        <div class="am-hero-main">
+          <h1 class="am-headline">
+            Apprenez le <br />
+            violoncelle, <em class="accent">à votre</em><br />
+            <em class="accent">rythme</em>, où que<br />
+            vous soyez
+            <a href="paliers.html" class="am-work"
+              ><span class="a">→</span> Commencer</a
+            >
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+     BENTO GRID
+================================================================ -->
+    <div class="am-bento">
+      <!-- pills (dark) -->
+      <div class="bt bt-dark t-pills">
+        <div class="bt-pill-o"><span class="pl">+</span> Nouveau cours</div>
+        <div class="bt-pill-o"><span class="pl">+</span> Nouvelle leçon</div>
+        <div class="bt-pill-o">
+          <span class="pl">+</span> +5 niveaux disponibles
+        </div>
+      </div>
+
+      <!-- feature sable doré -->
+      <div class="bt bt-lav t-feat">
+        <div class="bt-feat-eyebrow">École en ligne</div>
+        <div class="bt-title">
+          Un parcours pensé comme un voyage, du débutant au concert.
+        </div>
+      </div>
+
+      <!-- photo (ensemble de violoncelles) -->
+      <div class="bt bt-white t-person">
+        <img
+          class="bt-person-img"
+          src="assets/photos/cours-violoncelle.jpg"
+          alt="Ensemble de violoncelles"
+        />
+      </div>
+
+      <!-- croches (orange) -->
+      <div class="bt bt-orange t-note" title="Musique">
+        <svg
+          width="92"
+          height="86"
+          viewBox="0 0 92 86"
+          fill="#fff"
+          aria-label="Croches"
+        >
+          <rect x="34" y="14" width="5" height="46" rx="2.5" />
+          <rect x="70" y="8" width="5" height="42" rx="2.5" />
+          <path d="M34 14 L75 8 L75 22 L34 28 Z" />
+          <ellipse
+            cx="24"
+            cy="60"
+            rx="13"
+            ry="9.5"
+            transform="rotate(-18 24 60)"
+          />
+          <ellipse
+            cx="60"
+            cy="50"
+            rx="13"
+            ry="9.5"
+            transform="rotate(-18 60 50)"
+          />
+        </svg>
+      </div>
+
+      <!-- violoncelle (lavande) -->
+      <div class="bt bt-lav t-cello" title="Violoncelle">
+        <svg
+          width="58"
+          height="118"
+          viewBox="0 0 58 118"
+          aria-label="Violoncelle"
+        >
+          <g fill="#15131A">
+            <circle cx="29" cy="8" r="6" />
+            <rect x="26" y="8" width="6" height="40" />
+            <path
+              d="M29 44 C13 44 11 56 17 64 C9 68 9 76 17 80
+                 C7 86 7 110 29 110 C51 110 51 86 41 80
+                 C49 76 49 68 41 64 C47 56 45 44 29 44 Z"
+            />
+          </g>
+          <path
+            d="M21 73 q-3 7 0 14"
+            stroke="#F0C987"
+            stroke-width="2.4"
+            fill="none"
+            stroke-linecap="round"
+          />
+          <path
+            d="M37 73 q3 7 0 14"
+            stroke="#F0C987"
+            stroke-width="2.4"
+            fill="none"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+
+      <!-- partition / portée (gris, large) -->
+      <div class="bt bt-gray t-staff" title="Partitions">
+        <svg
+          width="230"
+          height="84"
+          viewBox="0 0 230 84"
+          aria-label="Partition"
+        >
+          <g stroke="#C8902F" stroke-width="2">
+            <line x1="18" y1="20" x2="212" y2="20" />
+            <line x1="18" y1="32" x2="212" y2="32" />
+            <line x1="18" y1="44" x2="212" y2="44" />
+            <line x1="18" y1="56" x2="212" y2="56" />
+            <line x1="18" y1="68" x2="212" y2="68" />
+          </g>
+          <g fill="#F4471F">
+            <ellipse cx="78" cy="62" rx="8" ry="6" />
+            <ellipse cx="120" cy="50" rx="8" ry="6" />
+            <ellipse cx="162" cy="38" rx="8" ry="6" />
+          </g>
+          <g stroke="#F4471F" stroke-width="3">
+            <line x1="85" y1="62" x2="85" y2="30" />
+            <line x1="127" y1="50" x2="127" y2="18" />
+            <line x1="169" y1="38" x2="169" y2="8" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- ondes sonores (lavande pâle) -->
+      <div class="bt bt-lav-pale t-audio" title="Audio">
+        <svg
+          width="120"
+          height="42"
+          viewBox="0 0 120 42"
+          aria-label="Ondes sonores"
+        >
+          <g fill="#C8902F">
+            <rect x="6" y="15" width="4" height="12" rx="2" />
+            <rect x="16" y="9" width="4" height="24" rx="2" />
+            <rect x="26" y="3" width="4" height="36" rx="2" />
+            <rect x="40" y="14" width="4" height="20" rx="2" fill="#F4471F" />
+            <rect x="50" y="8" width="4" height="26" rx="2" />
+            <rect x="60" y="2" width="4" height="38" rx="2" />
+            <rect x="70" y="12" width="4" height="18" rx="2" />
+            <rect x="80" y="5" width="4" height="32" rx="2" />
+            <rect x="90" y="14" width="4" height="14" rx="2" />
+            <rect x="100" y="9" width="4" height="24" rx="2" />
+            <rect x="110" y="15" width="4" height="12" rx="2" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- diapason (noir) -->
+      <div class="bt bt-dark t-fork" title="Accordez votre violoncelle">
+        <svg width="58" height="100" viewBox="0 0 58 100" aria-label="Diapason">
+          <g
+            fill="none"
+            stroke="#F4471F"
+            stroke-width="6"
+            stroke-linecap="round"
+          >
+            <path d="M18 14 L18 52" />
+            <path d="M40 14 L40 52" />
+            <path d="M18 52 C18 66 40 66 40 52" />
+          </g>
+          <rect x="26" y="60" width="6" height="32" rx="3" fill="#F0C987" />
+          <path
+            d="M8 22 q-5 7 0 14"
+            stroke="#F0C987"
+            stroke-width="3"
+            fill="none"
+            stroke-linecap="round"
+          />
+          <path
+            d="M50 22 q5 7 0 14"
+            stroke="#F0C987"
+            stroke-width="3"
+            fill="none"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!-- ================================================================
+     SECTION 02 — NOS 3 PILIERS
+================================================================ -->
+    <div class="full-border"></div>
+    <div class="am-section">
+      <div class="am-section-top">
+        <div>
+          <span class="am-section-num">02/</span>
+          <h2 class="am-section-h2">Bien plus<br />que des vidéos.</h2>
+        </div>
+        <div>
+          <p class="am-section-desc">
+            Notre objectif est de construire des cours avec trois qualités
+            essentielles : ils ont un <strong>sens</strong>, ils sont
+            <strong>progressifs</strong>, et ils cultivent une
+            <strong>vraie communauté</strong> autour de votre pratique.
+          </p>
+        </div>
+      </div>
+
+      <div class="am-show-grid">
+        <div class="am-show-card" style="cursor: default">
+          <div class="am-show-thumb">
+            <svg
+              viewBox="0 0 340 160"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid slice"
+            >
+              <rect width="340" height="160" fill="#F3F3F3" />
+              <circle cx="280" cy="-20" r="140" fill="#F4471F" />
+              <polygon points="0,160 160,0 0,0" fill="#E04400" />
+            </svg>
+            <span class="thumb-ico">🎬</span>
+          </div>
+          <div class="am-show-body">
+            <div class="am-show-role">Méthode</div>
+            <h3>Capsules courtes</h3>
+            <p>
+              Des vidéos de 5 à 10 min, son et image soignés, pour apprendre
+              geste par geste sans se décourager.
+            </p>
+            <span class="am-read-more"
+              >Lire plus <span class="am-arrow-box">↗</span></span
+            >
+          </div>
+        </div>
+
+        <div class="am-show-card" style="cursor: default">
+          <div class="am-show-thumb" style="background: var(--am-lav-pale)">
+            <svg
+              viewBox="0 0 340 160"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid slice"
+            >
+              <rect width="340" height="160" fill="#EDE8FF" />
+              <path
+                d="M-40,160 C60,80 200,100 340,40 L340,160 Z"
+                fill="rgba(200,184,255,.6)"
+              />
+              <circle cx="170" cy="70" r="55" fill="rgba(168,150,248,.4)" />
+            </svg>
+            <span class="thumb-ico">📄</span>
+          </div>
+          <div class="am-show-body">
+            <div class="am-show-role">Ressources</div>
+            <h3>Partitions incluses</h3>
+            <p>
+              Les PDF de chaque leçon, accompagnements audio compris,
+              téléchargeables et prêts à jouer.
+            </p>
+            <span class="am-read-more"
+              >Lire plus <span class="am-arrow-box">↗</span></span
+            >
+          </div>
+        </div>
+
+        <div class="am-show-card" style="cursor: default">
+          <div
+            class="am-show-body"
+            style="padding-top: 28px; justify-content: space-between"
+          >
+            <div>
+              <div
+                style="
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  background: var(--am-orange);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 1.1rem;
+                  margin-bottom: 14px;
+                "
+              >
+                🤝
+              </div>
+              <div class="am-show-role">Accompagnement</div>
+              <h3>Suivi humain</h3>
+              <p>
+                Envoyez vos vidéos, recevez des retours personnalisés.
+                Masterclass collectives et cours individuels.
+              </p>
+            </div>
+            <div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  margin: 18px 0 10px;
+                  font-family:
+                    &quot;sophia-pro&quot;, &quot;DM Sans&quot;, sans-serif;
+                  font-size: 0.8rem;
+                  color: #aaa;
+                  font-weight: 600;
+                "
+              >
+                <span
+                  style="
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background: var(--am-lav);
+                    display: inline-block;
+                  "
+                ></span>
+                Paliers Suivi &amp; Premium
+              </div>
+              <span class="am-read-more"
+                >En savoir plus <span class="am-arrow-box">↗</span></span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================
+     SECTION 03 — LE PARCOURS
+================================================================ -->
+    <div class="full-border"></div>
+    <div class="am-parcours">
+      <div class="am-parcours-top">
+        <div>
+          <span class="am-section-num">03/</span>
+          <h2 class="am-section-h2">Découvrez nos<br />niveaux de cours.</h2>
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 14px;
+          "
+        >
+          <p class="am-section-desc">
+            De la toute première note jusqu'aux pièces de concert. Chaque niveau
+            se débloque quand vous êtes prêt·e, avec un
+            <strong>certificat</strong> à la clé.
+          </p>
+          <a
+            href="parcours-realiste.html"
+            class="am-hero-cta"
+            style="align-self: flex-start"
+            >Voir le parcours →</a
+          >
+        </div>
+      </div>
+
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 260px 1fr;
+          gap: 40px;
+          align-items: start;
+        "
+      >
+        <div class="am-parcours-tags">
+          <a href="parcours-realiste.html" class="am-parcours-tag">
+            <span style="display: flex; align-items: center; gap: 8px"
+              ><span class="dot"></span>1 · Premiers pas</span
+            >
+            <span class="tag-arrow">↗</span>
+          </a>
+          <a href="parcours-realiste.html" class="am-parcours-tag">
+            <span style="display: flex; align-items: center; gap: 8px"
+              ><span class="dot"></span>2 · Les bases</span
+            >
+            <span class="tag-arrow">↗</span>
+          </a>
+          <a href="parcours-realiste.html" class="am-parcours-tag">
+            <span style="display: flex; align-items: center; gap: 8px"
+              ><span class="dot"></span>3 · Confirmé</span
+            >
+            <span class="tag-arrow">↗</span>
+          </a>
+          <a href="parcours-realiste.html" class="am-parcours-tag">
+            <span style="display: flex; align-items: center; gap: 8px"
+              ><span class="dot"></span>4 · Avancé</span
+            >
+            <span class="tag-arrow">↗</span>
+          </a>
+          <a href="parcours-realiste.html" class="am-parcours-tag">
+            <span style="display: flex; align-items: center; gap: 8px"
+              ><span class="dot"></span>5 · Concert</span
+            >
+            <span class="tag-arrow">↗</span>
+          </a>
+        </div>
+
+        <div>
+          <div
+            style="
+              font-family:
+                &quot;sophia-pro&quot;, &quot;DM Sans&quot;, sans-serif;
+              font-size: 0.78rem;
+              font-weight: 800;
+              color: #aaa;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              margin-bottom: 14px;
+            "
+          >
+            Professeures
+          </div>
+          <div class="am-circle-row">
+            <div class="am-circle" style="background: #f4471f">
+              <img src="assets/photos/ambre-tamagna.jpg" alt="Ambre" />
+            </div>
+            <div class="am-circle" style="background: var(--am-lav)">
+              <img src="assets/photos/eva-pereira-bodin.jpg" alt="Eva" />
+            </div>
+            <div class="am-circle" style="background: #f3f3f3">
+              <img src="assets/photos/anneline-depiereux.jpg" alt="Anneline" />
+            </div>
+            <div
+              class="am-circle"
+              style="background: var(--am-lav-pale); font-size: 1.8rem"
+            >
+              🎻
+            </div>
+            <div
+              class="am-circle"
+              style="background: var(--am-gray); font-size: 1.6rem"
+            >
+              🏆
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================
+     SECTION 04 — ÉQUIPE
+================================================================ -->
+    <div class="full-border"></div>
+    <div class="am-section" id="profs">
+      <div class="am-section-top">
+        <div>
+          <span class="am-section-num">04/</span>
+          <h2 class="am-section-h2">Une équipe,<br />pas un algorithme.</h2>
+        </div>
+        <div>
+          <p class="am-section-desc">
+            Trois violoncellistes passionnées qui vous
+            <strong>accompagnent réellement</strong> — pas un cours
+            pré-enregistré sans retour. Elles conçoivent, filment et répondent à
+            vos questions.
+          </p>
+        </div>
+      </div>
+
+      <div class="am-show-grid">
+        <a class="am-show-card" href="#profs">
+          <div class="am-show-thumb">
+            <svg
+              viewBox="0 0 340 160"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid slice"
+            >
+              <rect width="340" height="160" fill="#F3F3F3" />
+              <circle cx="170" cy="80" r="130" fill="rgba(255,80,0,.15)" />
+            </svg>
+            <img
+              src="assets/photos/ambre-tamagna.jpg"
+              alt="Ambre Tamagna"
+              style="
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0.8;
+                border-radius: 14px 14px 0 0;
+              "
+            />
+          </div>
+          <div class="am-show-body">
+            <div class="am-show-role">Fondatrice · Violoncelle</div>
+            <h3>Ambre Tamagna</h3>
+            <p>Porteuse du projet, elle conçoit le parcours et les capsules.</p>
+            <span class="am-read-more"
+              >Profil <span class="am-arrow-box">↗</span></span
+            >
+          </div>
+        </a>
+
+        <a class="am-show-card" href="#profs">
+          <div class="am-show-thumb" style="background: var(--am-lav-pale)">
+            <svg
+              viewBox="0 0 340 160"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid slice"
+            >
+              <rect width="340" height="160" fill="#EDE8FF" />
+              <circle cx="170" cy="80" r="130" fill="rgba(200,184,255,.4)" />
+            </svg>
+            <img
+              src="assets/photos/eva-pereira-bodin.jpg"
+              alt="Eva"
+              style="
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0.8;
+                border-radius: 14px 14px 0 0;
+              "
+            />
+          </div>
+          <div class="am-show-body">
+            <div class="am-show-role">Professeure · Suivi</div>
+            <h3>Eva Pereira Bodin</h3>
+            <p>
+              Retours vidéo et cours individuels pour les paliers Suivi &amp;
+              Premium.
+            </p>
+            <span class="am-read-more"
+              >Profil <span class="am-arrow-box">↗</span></span
+            >
+          </div>
+        </a>
+
+        <a class="am-show-card" href="#profs">
+          <div class="am-show-thumb" style="background: #f3f3f3">
+            <svg
+              viewBox="0 0 340 160"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid slice"
+            >
+              <rect width="340" height="160" fill="#F3F3F3" />
+              <circle cx="170" cy="80" r="130" fill="rgba(255,80,0,.07)" />
+            </svg>
+            <img
+              src="assets/photos/anneline-depiereux.jpg"
+              alt="Anneline"
+              style="
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0.8;
+                border-radius: 14px 14px 0 0;
+              "
+            />
+          </div>
+          <div class="am-show-body">
+            <div class="am-show-role">Professeure · Suivi</div>
+            <h3>Anneline Depiereux</h3>
+            <p>Masterclass collectives et accompagnement personnalisé.</p>
+            <span class="am-read-more"
+              >Profil <span class="am-arrow-box">↗</span></span
+            >
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ================================================================
+     BROWSE BY LEVEL — titre lavande géant + liste
+================================================================ -->
+    <div class="am-browse">
+      <div class="am-browse-title">Choisir<br />votre <em>niveau.</em></div>
+
+      <div class="am-level-list">
+        <a class="am-level-item" href="parcours-realiste.html">
+          <span class="am-level-num">01/</span>
+          <span class="am-level-name">Premiers pas</span>
+          <span class="am-level-count">Débutant absolu</span>
+          <div class="am-level-icon">↗</div>
+        </a>
+
+        <a
+          class="am-level-item"
+          href="parcours-realiste.html"
+          style="position: relative"
+        >
+          <span class="am-level-num">02/</span>
+          <span class="am-level-name">Les bases</span>
+          <span class="am-level-count">Premières pièces</span>
+
+          <div class="am-level-icon">↗</div>
+        </a>
+
+        <a class="am-level-item" href="parcours-realiste.html">
+          <span class="am-level-num">03/</span>
+          <span class="am-level-name">Confirmé</span>
+          <span class="am-level-count">Répertoire varié</span>
+          <div class="am-level-icon">↗</div>
+        </a>
+
+        <a class="am-level-item" href="parcours-realiste.html">
+          <span class="am-level-num">04/</span>
+          <span class="am-level-name">Avancé</span>
+          <span class="am-level-count">Technique solide</span>
+          <div class="am-level-icon">↗</div>
+        </a>
+
+        <a class="am-level-item" href="parcours-realiste.html">
+          <span class="am-level-num">05/</span>
+          <span class="am-level-name">Concert</span>
+          <span class="am-level-count">Pièces de scène</span>
+          <div class="am-level-icon">↗</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ================================================================
+     CTA
+================================================================ -->
+    <div class="am-cta">
+      <div
+        style="
+          max-width: var(--maxw);
+          margin: 0 auto;
+          position: relative;
+          z-index: 1;
+        "
+      >
+        <span class="eyebrow" style="color: var(--am-lav)"
+          >Avant de vous engager</span
+        >
+        <h2
+          style="
+            color: #fff;
+            font-family: &quot;europa&quot;, &quot;Jost&quot;, sans-serif;
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            font-weight: 900;
+            max-width: 18ch;
+            margin: 0 auto 20px;
+            line-height: 1.08;
+          "
+        >
+          Commencez avec<br />2 cours offerts.
+        </h2>
+        <p
+          style="
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 44ch;
+            margin: 0 auto 32px;
+            font-size: 1rem;
+          "
+        >
+          Créez un compte gratuit, accédez aux premières leçons et quelques
+          partitions. Aucune carte demandée.
+        </p>
+        <a href="paliers.html">Créer mon compte gratuit →</a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer style="background: #0d0d0d">
+      <div class="wrap cols">
+        <div>
+          <div
+            class="brand"
+            style="color: var(--am-orange); margin-bottom: 10px"
+          >
+            <img src="assets/logo/magnattitude-logo.png" alt="" /> celloMagna
+          </div>
+          <p style="color: #666; max-width: 34ch; font-size: 0.92rem">
+            Cours de violoncelle en ligne par l'ASBL MagnAttitude. Grivegnée,
+            Liège.
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 1rem; margin-bottom: 10px">
+            Naviguer
+          </h4>
+          <p>
+            <a href="accueil.html" style="color: var(--am-lav)">Accueil</a
+            ><br />
+            <a href="paliers.html" style="color: var(--am-lav)">Tarifs</a><br />
+            <a href="parcours-realiste.html" style="color: var(--am-lav)"
+              >Le parcours</a
+            >
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 1rem; margin-bottom: 10px">
+            Contact
+          </h4>
+          <p style="color: #666; font-size: 0.92rem">
+            magnattitudeasbl@gmail.com<br />+32 487 02 82 45
+          </p>
+        </div>
+      </div>
+      <div
+        class="wrap"
+        style="
+          margin-top: 34px;
+          border-top: 1px solid #222;
+          padding-top: 18px;
+          font-size: 0.82rem;
+          color: #444;
+        "
+      >
+        © 2026 MagnAttitude ASBL — maquette de présentation
+      </div>
+    </footer>
+  </body>
+</html>

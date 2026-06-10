@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>celloMagna — Mon parcours (variante réaliste)</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .member-bar {
+        background: var(--walnut);
+        color: #fff;
+      }
+      .member-bar .wrap {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        padding: 22px 24px;
+        flex-wrap: wrap;
+      }
+      .avatar {
+        width: 54px;
+        height: 54px;
+        border-radius: var(--r-pill);
+        background: var(--honey);
+        color: var(--walnut);
+        display: grid;
+        place-items: center;
+        font-family: "Jost";
+        font-weight: 700;
+        font-size: 1.3rem;
+      }
+      .stat {
+        display: flex;
+        flex-direction: column;
+      }
+      .stat b {
+        font-family: "Jost";
+        font-size: 1.4rem;
+        color: #fff;
+      }
+      .stat span {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.55);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .progress-track {
+        flex: 1;
+        min-width: 180px;
+      }
+      .bar {
+        height: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: var(--r-pill);
+        overflow: hidden;
+        margin-top: 6px;
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        width: 42%;
+        background: linear-gradient(90deg, var(--honey), var(--terracotta));
+        border-radius: var(--r-pill);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 30px;
+        padding: 34px 0 70px;
+        align-items: start;
+      }
+      @media (max-width: 880px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* leçons (déployées sous chaque niveau) */
+      .lessons {
+        border-top: 1px solid var(--line);
+      }
+      .lessons a,
+      .lessons span.row {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        padding: 14px 24px 14px 88px;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 0.96rem;
+        color: var(--bark);
+        text-decoration: none;
+      }
+      .lessons a:last-child,
+      .lessons span.row:last-child {
+        border-bottom: none;
+      }
+      .lessons a:hover {
+        background: var(--lav-pale);
+      }
+      .lessons .mark {
+        flex: 0 0 24px;
+        width: 24px;
+        height: 24px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 0.72rem;
+        background: #e4e4e4;
+        color: #fff;
+      }
+      .lessons .done .mark {
+        background: var(--sage);
+      }
+      .lessons .current {
+        background: var(--lav-pale);
+        font-weight: 700;
+      }
+      .lessons .current .mark {
+        background: var(--terracotta);
+      }
+      .lessons .locked {
+        color: #aaa;
+      }
+      .lessons .type {
+        margin-left: auto;
+        font-size: 0.78rem;
+        color: #999;
+      }
+      .lessons .cert {
+        color: var(--terracotta-d);
+        font-weight: 700;
+      }
+
+      /* Sidebar : .side / .side-tag définis dans styles.css (partagé) */
+
+      /* Browse by level — réutilisé de l'accueil (titre lavande géant + liste) */
+      .am-browse-title {
+        font-family: "Jost", sans-serif;
+        font-size: clamp(2.8rem, 7vw, 5.5rem);
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: -1px;
+        color: var(--honey);
+        margin: 6px 0 28px;
+      }
+      .am-browse-title em {
+        color: var(--terracotta);
+        font-style: italic;
+      }
+      .am-level-item {
+        display: flex;
+        align-items: center;
+        padding: 22px 0;
+        border-top: 1px solid var(--line);
+        position: relative;
+        text-decoration: none;
+        color: inherit;
+        transition: background 0.15s;
+      }
+      .am-level-item:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .am-level-item.locked {
+        opacity: 0.55;
+        cursor: default;
+      }
+      .am-level-num {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: #bbb;
+        width: 48px;
+        flex-shrink: 0;
+        letter-spacing: 0.5px;
+      }
+      .am-level-name {
+        flex: 1;
+        font-family: "Jost", sans-serif;
+        font-size: clamp(1.6rem, 4vw, 3rem);
+        font-weight: 400;
+        color: #111;
+        letter-spacing: -0.01em;
+        transition: color 0.15s;
+      }
+      .am-level-item:not(.locked):hover .am-level-name {
+        color: var(--terracotta);
+      }
+      .am-level-count {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #aaa;
+        margin-right: 18px;
+        white-space: nowrap;
+      }
+      .am-level-count.done {
+        color: var(--sage);
+      }
+      .am-level-count.current {
+        color: var(--terracotta);
+      }
+      .am-level-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--parchment);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        color: #555;
+        transition: background 0.15s;
+        flex-shrink: 0;
+      }
+      .am-level-item:not(.locked):hover .am-level-icon {
+        background: var(--terracotta);
+        color: #fff;
+      }
+      .am-float-photo {
+        position: absolute;
+        right: 90px;
+        top: 50%;
+        transform: translateY(-50%) rotate(-4deg);
+        width: 104px;
+        height: 74px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        border: 3px solid #fff;
+        pointer-events: none;
+      }
+      .am-float-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      @media (max-width: 640px) {
+        .am-float-photo {
+          display: none;
+        }
+      }
+      /* niveaux dépliables dans le style browse */
+      details.am-level > summary.am-level-item {
+        cursor: pointer;
+        list-style: none;
+      }
+      details.am-level > summary.am-level-item::-webkit-details-marker {
+        display: none;
+      }
+      details.am-level[open] > summary.am-level-item .am-level-icon {
+        background: var(--terracotta);
+        color: #fff;
+        transform: rotate(90deg);
+      }
+      details.am-level .lessons {
+        border-top: 1px solid var(--line);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="note-banner">
+      MAQUETTE — variante « réaliste » (layout natif LearnDash stylé) · 100 %
+      faisable sans dev custom
+    </div>
+
+    <header class="nav">
+      <div class="wrap">
+        <a class="brand" href="accueil.html"
+          ><img src="assets/logo/magnattitude-logo.png" alt="logo" />
+          celloMagna</a
+        >
+        <nav class="nav-links">
+          <a href="parcours-realiste.html" class="active">Mon parcours</a>
+          <a href="lecon.html">Mes leçons</a>
+          <a href="paliers.html">Mon abonnement</a>
+          <a href="#" class="btn btn-ghost btn-sm">Mon compte</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- BARRE MEMBRE -->
+    <div class="member-bar">
+      <div class="wrap">
+        <div class="avatar">A</div>
+        <div class="stat">
+          <b>Bonjour, Amélie 👋</b><span>Palier Suivi</span>
+        </div>
+        <div class="stat"><b>2 / 5</b><span>niveaux validés</span></div>
+        <div class="progress-track">
+          <span style="font-size: 0.82rem; color: rgba(255, 255, 255, 0.55)"
+            >Progression du parcours · 42 %</span
+          >
+          <div class="bar"><i></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="layout">
+        <!-- COLONNE PRINCIPALE : la liste des niveaux -->
+        <div>
+          <!-- Reprendre -->
+          <div
+            class="level"
+            style="
+              border: 2px solid var(--terracotta);
+              border-radius: var(--r);
+              display: flex;
+              align-items: center;
+              gap: 16px;
+              padding: 18px 24px;
+            "
+          >
+            <span style="font-size: 1.8rem">🎬</span>
+            <div style="flex: 1">
+              <strong>Reprendre — Niveau 3, leçon 4</strong>
+              <p style="font-size: 0.9rem; color: #555">
+                « Le vibrato, premiers pas »
+              </p>
+            </div>
+            <a href="lecon.html" class="btn btn-primary btn-sm">Continuer →</a>
+          </div>
+
+          <!-- BROWSE BY LEVEL — titre lavande géant + liste (réutilisé de l'accueil) -->
+          <div class="am-browse-title" style="margin-top: 34px">
+            Mon<br /><em>parcours.</em>
+          </div>
+
+          <div class="am-level-list">
+            <details class="am-level">
+              <summary class="am-level-item">
+                <span class="am-level-num">01/</span>
+                <span class="am-level-name">Premiers pas</span>
+                <span class="am-level-count done">Validé 🏆</span>
+                <div class="am-level-icon">›</div>
+              </summary>
+              <div class="lessons">
+                <a class="done" href="lecon.html"
+                  ><span class="mark">✓</span> 1 · Tenue de l'instrument
+                  <span class="type">▶ vidéo</span></a
+                >
+                <a class="done" href="lecon.html"
+                  ><span class="mark">✓</span> 2 · Les cordes à vide
+                  <span class="type">▶ vidéo + 📄</span></a
+                >
+                <a class="done" href="lecon.html"
+                  ><span class="mark">✓</span> 3 · Mon premier coup d'archet
+                  <span class="type">▶ vidéo + 🎧</span></a
+                >
+                <a class="done" href="lecon.html"
+                  ><span class="mark">🏆</span>
+                  <span class="cert">Certificat de niveau 1</span>
+                  <span class="type">obtenu</span></a
+                >
+              </div>
+            </details>
+
+            <details class="am-level">
+              <summary class="am-level-item">
+                <span class="am-level-num">02/</span>
+                <span class="am-level-name">Les bases</span>
+                <span class="am-level-count done">Validé 🏆</span>
+                <div class="am-level-icon">›</div>
+              </summary>
+              <div class="lessons">
+                <a class="done" href="lecon.html"
+                  ><span class="mark">✓</span> 1 · La main gauche
+                  <span class="type">▶ vidéo + 📄</span></a
+                >
+                <a class="done" href="lecon.html"
+                  ><span class="mark">✓</span> 2 · Première mélodie
+                  <span class="type">▶ vidéo + 🎧</span></a
+                >
+                <a class="done" href="lecon.html"
+                  ><span class="mark">✓</span> 3 · Rythme et pulsation
+                  <span class="type">▶ vidéo</span></a
+                >
+                <a class="done" href="lecon.html"
+                  ><span class="mark">✓</span> 4 · Petite pièce de niveau
+                  <span class="type">▶ vidéo + 📄</span></a
+                >
+                <a class="done" href="lecon.html"
+                  ><span class="mark">🏆</span>
+                  <span class="cert">Certificat de niveau 2</span>
+                  <span class="type">obtenu</span></a
+                >
+              </div>
+            </details>
+
+            <details class="am-level" open>
+              <summary class="am-level-item">
+                <span class="am-level-num">03/</span>
+                <span class="am-level-name">Élève confirmé·e</span>
+                <span class="am-level-count current">En cours · 3/7</span>
+                <div class="am-level-icon">›</div>
+              </summary>
+              <div class="lessons">
+                <a class="done" href="lecon.html"
+                  ><span class="mark">✓</span> 1 · Les liaisons
+                  <span class="type">▶ vidéo</span></a
+                >
+                <a class="done" href="lecon.html"
+                  ><span class="mark">✓</span> 2 · Changements d'archet
+                  <span class="type">▶ vidéo + 📄</span></a
+                >
+                <a class="done" href="lecon.html"
+                  ><span class="mark">✓</span> 3 · Nuances
+                  <span class="type">▶ vidéo</span></a
+                >
+                <a class="current" href="lecon.html"
+                  ><span class="mark">▶</span> 4 · Le vibrato, premiers pas
+                  <span class="type">▶ vidéo + 📄 + 🎧</span></a
+                >
+                <span class="row locked"
+                  ><span class="mark">🔒</span> 5 · Doubles cordes
+                  <span class="type">verrouillé</span></span
+                >
+                <span class="row locked"
+                  ><span class="mark">🔒</span> 6 · Petite pièce de niveau
+                  <span class="type">verrouillé</span></span
+                >
+                <span class="row locked"
+                  ><span class="mark">🏆</span>
+                  <span class="cert"
+                    >Examen → certificat de niveau 3</span
+                  ></span
+                >
+              </div>
+            </details>
+
+            <span class="am-level-item locked">
+              <span class="am-level-num">04/</span>
+              <span class="am-level-name">Avancé</span>
+              <span class="am-level-count">Verrouillé</span>
+              <div class="am-level-icon">🔒</div>
+            </span>
+
+            <span class="am-level-item locked">
+              <span class="am-level-num">05/</span>
+              <span class="am-level-name">Pièces de concert</span>
+              <span class="am-level-count">Verrouillé</span>
+              <div class="am-level-icon">🔒</div>
+            </span>
+          </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="side">
+          <div class="head">🏆 Mes certificats</div>
+          <div class="side-tags">
+            <a class="side-tag" href="#">
+              <span class="label"><span class="dot"></span>Niveau 1</span>
+              <span class="tag-arrow">📜</span>
+            </a>
+            <a class="side-tag" href="#">
+              <span class="label"><span class="dot"></span>Niveau 2</span>
+              <span class="tag-arrow">📜</span>
+            </a>
+            <span class="side-tag locked">
+              <span class="label"
+                ><span class="dot"></span>Niveau 3 — en cours</span
+              >
+              <span class="tag-arrow">🔒</span>
+            </span>
+          </div>
+
+          <div class="head">Mes prochaines dates</div>
+          <div class="side-tags">
+            <a class="side-tag current" href="#">
+              <span class="label"
+                ><span class="dot"></span>Masterclass · jeu 18 juin, 19h</span
+              >
+              <span class="tag-arrow">↗</span>
+            </a>
+          </div>
+          <p style="font-size: 0.8rem; color: #999; margin-top: 8px">
+            Incluse avec votre palier Suivi
+          </p>
+        </aside>
+      </div>
+    </div>
+
+    <footer>
+      <div class="wrap cols">
+        <div>
+          <div class="brand" style="color: #fff; margin-bottom: 10px">
+            <img src="assets/logo/magnattitude-logo.png" alt="" /> celloMagna
+          </div>
+          <p style="color: #888; max-width: 34ch; font-size: 0.92rem">
+            Cours de violoncelle en ligne par l'ASBL MagnAttitude. Grivegnée,
+            Liège.
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 1rem; margin-bottom: 10px">
+            Naviguer
+          </h4>
+          <p>
+            <a href="accueil.html">Accueil</a><br /><a href="paliers.html"
+              >Tarifs</a
+            ><br /><a href="parcours-realiste.html">Le parcours</a>
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 1rem; margin-bottom: 10px">
+            Contact
+          </h4>
+          <p style="color: #888; font-size: 0.92rem">
+            magnattitudeasbl@gmail.com<br />+32 487 02 82 45
+          </p>
+        </div>
+      </div>
+      <div
+        class="wrap"
+        style="
+          margin-top: 34px;
+          border-top: 1px solid #222;
+          padding-top: 18px;
+          font-size: 0.82rem;
+          color: #666;
+        "
+      >
+        © 2026 MagnAttitude ASBL — maquette de présentation
+      </div>
+    </footer>
+  </body>
+</html>

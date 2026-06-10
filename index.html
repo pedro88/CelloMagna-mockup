@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>celloMagna — Maquettes</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* --- Launcher --- */
+  .intro { text-align:center; padding:70px 0 10px; }
+  .intro img { display:block; width:92px; height:92px; border-radius:var(--r-pill); object-fit:cover; box-shadow:var(--shadow); margin:0 auto 18px; }
+
+  .group { margin-top:18px; }
+  .group-head { display:flex; align-items:baseline; gap:14px; margin:0 0 20px; }
+  .group-head h2 { font-size:1.5rem; }
+  .group-head .line { flex:1; height:1px; background:var(--line); }
+
+  .screens { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+  @media(max-width:680px){ .screens{ grid-template-columns:1fr; } }
+
+  .screen {
+    display:flex; flex-direction:column; gap:0; background:#fff; border:1px solid var(--line);
+    border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow-sm);
+    text-decoration:none; color:inherit; transition:transform .18s, box-shadow .18s;
+  }
+  .screen:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+  .screen .thumb { height:96px; display:flex; align-items:center; justify-content:center; font-size:2.6rem; background:var(--parchment); }
+  .screen.t-public .thumb { background:linear-gradient(135deg,var(--lav-pale),#f3e3c4); }
+  .screen.t-member .thumb { background:linear-gradient(135deg,#f3f3f3,#e8e8e8); }
+  .screen .body { padding:20px 22px 22px; flex:1; display:flex; flex-direction:column; }
+  .screen h3 { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .screen p { font-size:.95rem; flex:1; }
+  .screen .open { margin-top:14px; font-weight:700; color:var(--terracotta-d); font-size:.95rem; }
+</style>
+</head>
+<body>
+
+<div class="note-banner">MAQUETTE — aperçu cliquable · contenu, photos et tarifs d'illustration, à valider avec Ambre</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/logo/magnattitude-logo.png" alt="logo"> celloMagna</a>
+    <nav class="nav-links">
+      <a href="accueil.html">Accueil</a>
+      <a href="paliers.html">Tarifs</a>
+      <a href="parcours-realiste.html">Espace membre</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" style="padding-bottom:80px">
+
+  <!-- Intro -->
+  <section class="intro">
+    <img src="assets/logo/magnattitude-logo.png" alt="">
+    <span class="eyebrow">Maquettes de présentation</span>
+    <h1>celloMagna</h1>
+    <p class="lead center" style="margin:14px auto 0">Voici un aperçu cliquable de la future plateforme de cours de violoncelle. Parcourez les écrans ci-dessous — tout est navigable.</p>
+  </section>
+
+  <!-- Pages publiques -->
+  <section class="group section" style="padding:50px 0 0">
+    <div class="group-head"><h2>Les pages publiques</h2><span class="line"></span></div>
+    <div class="screens">
+      <a class="screen t-public" href="accueil.html">
+        <div class="thumb">🏠</div>
+        <div class="body">
+          <h3>Accueil</h3>
+          <p>La vitrine émotionnelle : promesse, les 3 piliers, l'équipe de profs, aperçu du parcours, appel au cours gratuit.</p>
+          <span class="open">Ouvrir la page →</span>
+        </div>
+      </a>
+      <a class="screen t-public" href="paliers.html">
+        <div class="thumb">💳</div>
+        <div class="body">
+          <h3>Tarifs &amp; formules</h3>
+          <p>Les 4 paliers (Découverte gratuit · Basique · Suivi · Premium) en cartes, plus la matrice détaillée des accès.</p>
+          <span class="open">Ouvrir la page →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Espace membre -->
+  <section class="group section" style="padding:50px 0 0">
+    <div class="group-head"><h2>L'espace membre</h2><span class="line"></span></div>
+    <div class="screens">
+      <a class="screen t-member" href="lecon.html">
+        <div class="thumb">🎬</div>
+        <div class="body">
+          <h3>Une leçon</h3>
+          <p>Lecteur vidéo protégé (Bunny), partition PDF, audio d'accompagnement, navigation, et dépôt de vidéo pour le suivi.</p>
+          <span class="open">Ouvrir la page →</span>
+        </div>
+      </a>
+      <a class="screen t-member" href="parcours-realiste.html">
+        <div class="thumb">🗺️</div>
+        <div class="body">
+          <h3>Mon parcours</h3>
+          <p>Le tableau de bord de l'élève : progression, 5 niveaux dépliables, leçons faites/en cours/verrouillées, certificats.</p>
+          <span class="open">Ouvrir la page →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="color:#fff; margin-bottom:10px"><img src="assets/logo/magnattitude-logo.png" alt=""> celloMagna</div>
+      <p style="color:#888; max-width:34ch; font-size:.92rem">Maquettes de la plateforme de cours de violoncelle en ligne. ASBL MagnAttitude, Liège.</p>
+    </div>
+    <div><h4 style="color:#fff; font-size:1rem; margin-bottom:10px">Écrans</h4><p><a href="accueil.html">Accueil</a><br><a href="paliers.html">Tarifs</a><br><a href="parcours-realiste.html">Mon parcours</a><br><a href="lecon.html">Une leçon</a></p></div>
+    <div><h4 style="color:#fff; font-size:1rem; margin-bottom:10px">Contact</h4><p style="color:#888; font-size:.92rem">magnattitudeasbl@gmail.com<br>+32 487 02 82 45</p></div>
+  </div>
+  <div class="wrap" style="margin-top:34px; border-top:1px solid #222; padding-top:18px; font-size:.82rem; color:#666">© 2026 MagnAttitude ASBL — maquette de présentation par CapsulCorp</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>celloMagna — Mon parcours</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .member-bar {
+        background: var(--walnut);
+        color: #fff;
+      }
+      .member-bar .wrap {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        padding: 22px 24px;
+        flex-wrap: wrap;
+      }
+      .avatar {
+        width: 54px;
+        height: 54px;
+        border-radius: var(--r-pill);
+        background: var(--honey);
+        color: var(--walnut);
+        display: grid;
+        place-items: center;
+        font-family: "Jost";
+        font-weight: 700;
+        font-size: 1.3rem;
+      }
+      .stat {
+        display: flex;
+        flex-direction: column;
+      }
+      .stat b {
+        font-family: "Jost";
+        font-size: 1.4rem;
+        color: #fff;
+      }
+      .stat span {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.55);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .progress-track {
+        flex: 1;
+        min-width: 180px;
+      }
+      .bar {
+        height: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: var(--r-pill);
+        overflow: hidden;
+        margin-top: 6px;
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        width: 42%;
+        background: linear-gradient(90deg, var(--honey), var(--terracotta));
+        border-radius: var(--r-pill);
+      }
+
+      /* CHEMIN — tracé sinueux SVG + embranchement, pastilles posées dessus */
+      .path {
+        position: relative;
+        width: 100%;
+        max-width: 480px;
+        height: 1410px;
+        margin: 0 auto;
+      }
+      .trail {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      .trail path {
+        fill: none;
+        stroke-width: 4;
+        stroke-linecap: round;
+        vector-effect: non-scaling-stroke;
+      }
+      .trail .t-done {
+        stroke: var(--sage);
+      }
+      .trail .t-current {
+        stroke: var(--terracotta);
+      }
+      .trail .t-locked {
+        stroke: var(--line);
+        stroke-dasharray: 2 7;
+      }
+
+      /* jalon de niveau (posé sur la ligne, halo blanc qui masque le tracé) */
+      .stage {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: max-content;
+        text-align: center;
+        z-index: 2;
+      }
+      .stage-chip {
+        display: inline-block;
+        font-family: "DM Sans";
+        font-weight: 800;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 5px 14px;
+        border-radius: var(--r-pill);
+        background: var(--parchment);
+        color: #555;
+        box-shadow: 0 0 0 7px #fff;
+      }
+      .stage-chip.done {
+        background: var(--lav-pale);
+        color: var(--sage);
+      }
+      .stage-chip.current {
+        background: var(--terracotta);
+        color: #fff;
+      }
+      .stage-name {
+        display: inline-block;
+        font-family: "Jost";
+        font-size: 1.3rem;
+        color: #111;
+        margin-top: 8px;
+        padding: 0 8px;
+        background: #fff;
+        letter-spacing: -0.01em;
+      }
+      .stage.locked .stage-name {
+        color: #bbb;
+      }
+      .stage.locked .stage-chip {
+        opacity: 0.7;
+      }
+
+      /* pastille */
+      .node {
+        position: absolute;
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        display: grid;
+        place-items: center;
+        font-size: 1.4rem;
+        text-decoration: none;
+        transition: box-shadow 0.15s;
+        z-index: 3;
+      }
+      .node.done {
+        background: var(--sage);
+        color: #fff;
+      }
+      .node.current {
+        background: var(--terracotta);
+        color: #fff;
+        box-shadow: 0 0 0 6px rgba(244, 71, 31, 0.15);
+        animation: pulse 2s infinite;
+      }
+      .node.locked {
+        background: #eee;
+        color: #bbb;
+        cursor: not-allowed;
+      }
+      .node:not(.locked):hover {
+        box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.25);
+      }
+      .node .label {
+        position: absolute;
+        top: calc(100% + 7px);
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        font-family: "DM Sans";
+        font-weight: 700;
+        font-size: 0.82rem;
+        color: #111;
+        text-align: center;
+      }
+      .node.locked .label {
+        color: #aaa;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 6px rgba(244, 71, 31, 0.15);
+        }
+        50% {
+          box-shadow: 0 0 0 13px rgba(244, 71, 31, 0);
+        }
+      }
+
+      .cert-card {
+        background: linear-gradient(135deg, var(--honey), var(--terracotta));
+        color: #111;
+        border-radius: var(--r);
+        padding: 22px 24px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        box-shadow: var(--shadow-sm);
+      }
+      .cert-card .ico {
+        font-size: 2.4rem;
+      }
+      .upsell {
+        background: var(--parchment);
+        border: 1px dashed var(--walnut-soft);
+        border-radius: var(--r);
+        padding: 24px;
+        text-align: center;
+        margin: 30px auto;
+        max-width: 560px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="note-banner">
+      MAQUETTE — espace membre, données d'illustration
+    </div>
+
+    <header class="nav">
+      <div class="wrap">
+        <a class="brand" href="accueil.html"
+          ><img src="assets/logo/magnattitude-logo.png" alt="logo" />
+          celloMagna</a
+        >
+        <nav class="nav-links">
+          <a href="parcours-realiste.html" class="active">Mon parcours</a>
+          <a href="lecon.html">Mes leçons</a>
+          <a href="paliers.html">Mon abonnement</a>
+          <a href="#" class="btn btn-ghost btn-sm">Mon compte</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- BARRE MEMBRE -->
+    <div class="member-bar">
+      <div class="wrap">
+        <div class="avatar">A</div>
+        <div class="stat">
+          <b>Bonjour, Amélie 👋</b><span>Palier Suivi</span>
+        </div>
+        <div class="stat"><b>🔥 12</b><span>jours d'affilée</span></div>
+        <div class="stat"><b>2</b><span>certificats</span></div>
+        <div class="progress-track">
+          <span style="font-size: 0.82rem; color: rgba(255, 255, 255, 0.55)"
+            >Progression globale · 42 %</span
+          >
+          <div class="bar"><i></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <!-- CTA reprendre -->
+      <div class="cert-card" style="margin: 34px auto 0; max-width: 560px">
+        <div class="ico">🎬</div>
+        <div style="flex: 1">
+          <strong style="font-size: 1.1rem">Reprendre où vous en étiez</strong>
+          <p style="color: #333; font-size: 0.92rem">
+            Niveau 3 · Leçon 4 — « Le vibrato, premiers pas »
+          </p>
+        </div>
+        <a href="lecon.html" class="btn btn-primary btn-sm">Continuer →</a>
+      </div>
+
+      <!-- CHEMIN sinueux + embranchement -->
+      <div class="path">
+        <svg
+          class="trail"
+          viewBox="0 0 100 1410"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <!-- tracé terminé (gold) -->
+          <path
+            class="t-done"
+            d="M50 120 C50 175 30 175 30 230 C30 285 68 285 68 340
+               C68 422 40 422 40 505 C40 560 64 560 64 615
+               C64 697 36 697 36 780"
+          />
+          <!-- tracé en cours (orange) -->
+          <path class="t-current" d="M36 780 C36 835 60 835 60 890" />
+          <!-- tracé verrouillé (gris pointillé) + embranchement -->
+          <path
+            class="t-locked"
+            d="M60 890 C60 945 40 945 40 1000
+               M40 1000 C40 1082 28 1082 28 1165
+               M40 1000 C40 1082 72 1082 72 1165
+               M28 1165 C28 1257 50 1257 50 1350
+               M72 1165 C72 1257 50 1257 50 1350"
+          />
+        </svg>
+
+        <!-- Jalons -->
+        <div class="stage" style="top: 30px">
+          <span class="stage-chip done">Niveau 1 · terminé 🏆</span>
+          <span class="stage-name">Premiers pas</span>
+        </div>
+        <div class="stage" style="top: 410px">
+          <span class="stage-chip done">Niveau 2 · terminé 🏆</span>
+          <span class="stage-name">Les bases</span>
+        </div>
+        <div class="stage" style="top: 685px">
+          <span class="stage-chip current">Niveau 3 · en cours</span>
+          <span class="stage-name">Élève confirmé·e</span>
+        </div>
+        <div class="stage locked" style="top: 1070px">
+          <span class="stage-chip">Niveau 4 · verrouillé · embranchement</span>
+          <span class="stage-name">Avancé</span>
+        </div>
+        <div class="stage locked" style="top: 1255px">
+          <span class="stage-chip">Niveau 5 · verrouillé</span>
+          <span class="stage-name">Pièces de concert</span>
+        </div>
+
+        <!-- Pastilles -->
+        <a class="node done" style="top: 120px; left: 50%" href="lecon.html"
+          >✓<span class="label">Tenue de l'instrument</span></a
+        >
+        <a class="node done" style="top: 230px; left: 30%" href="lecon.html"
+          >✓<span class="label">Cordes à vide</span></a
+        >
+        <a class="node done" style="top: 340px; left: 68%" href="lecon.html"
+          >✓<span class="label">1er coup d'archet</span></a
+        >
+        <a class="node done" style="top: 505px; left: 40%" href="lecon.html"
+          >✓<span class="label">Main gauche</span></a
+        >
+        <a class="node done" style="top: 615px; left: 64%" href="lecon.html"
+          >✓<span class="label">1re mélodie</span></a
+        >
+        <a class="node done" style="top: 780px; left: 36%" href="lecon.html"
+          >✓<span class="label">Liaisons</span></a
+        >
+        <a class="node current" style="top: 890px; left: 60%" href="lecon.html"
+          >🎻<span class="label">Le vibrato</span></a
+        >
+        <span class="node locked" style="top: 1000px; left: 40%"
+          >🔒<span class="label">Doubles cordes</span></span
+        >
+        <!-- embranchement : 2 leçons en parallèle -->
+        <span class="node locked" style="top: 1165px; left: 28%"
+          >🔒<span class="label">Positions</span></span
+        >
+        <span class="node locked" style="top: 1165px; left: 72%"
+          >🔒<span class="label">Sons aigus</span></span
+        >
+        <span class="node locked" style="top: 1350px; left: 50%"
+          >🔒<span class="label">Suite de Bach</span></span
+        >
+      </div>
+
+      <!-- Upsell suivi -->
+      <div class="upsell">
+        <span class="eyebrow">Passez au palier supérieur</span>
+        <h3 style="margin: 6px 0 10px">
+          Envie d'un retour personnalisé sur votre vibrato ?
+        </h3>
+        <p style="margin-bottom: 16px">
+          Avec le palier <strong>Premium</strong>, envoyez votre vidéo et
+          recevez les conseils d'Ambre en cours individuel.
+        </p>
+        <a href="paliers.html" class="btn btn-primary btn-sm"
+          >Voir les formules →</a
+        >
+      </div>
+    </div>
+
+    <footer style="margin-top: 40px">
+      <div class="wrap cols">
+        <div>
+          <div class="brand" style="color: #fff; margin-bottom: 10px">
+            <img src="assets/logo/magnattitude-logo.png" alt="" /> celloMagna
+          </div>
+          <p style="color: #888; max-width: 34ch; font-size: 0.92rem">
+            Cours de violoncelle en ligne par l'ASBL MagnAttitude. Grivegnée,
+            Liège.
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 1rem; margin-bottom: 10px">
+            Naviguer
+          </h4>
+          <p>
+            <a href="accueil.html">Accueil</a><br /><a href="paliers.html"
+              >Tarifs</a
+            ><br /><a href="parcours-realiste.html">Le parcours</a>
+          </p>
+        </div>
+        <div>
+          <h4 style="color: #fff; font-size: 1rem; margin-bottom: 10px">
+            Contact
+          </h4>
+          <p style="color: #888; font-size: 0.92rem">
+            magnattitudeasbl@gmail.com<br />+32 487 02 82 45
+          </p>
+        </div>
+      </div>
+      <div
+        class="wrap"
+        style="
+          margin-top: 34px;
+          border-top: 1px solid #222;
+          padding-top: 18px;
+          font-size: 0.82rem;
+          color: #666;
+        "
+      >
+        © 2026 MagnAttitude ASBL — maquette de présentation
+      </div>
+    </footer>
+  </body>
+</html>

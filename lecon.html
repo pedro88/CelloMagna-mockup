@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>celloMagna — Le vibrato, premiers pas</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .lesson { display:grid; grid-template-columns:1fr 320px; gap:34px; padding:36px 0 70px; align-items:start; }
+  @media(max-width:900px){ .lesson{ grid-template-columns:1fr; } }
+
+  .player { position:relative; aspect-ratio:16/9; border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow); background:linear-gradient(135deg,#1a1a1a,#333); display:grid; place-items:center; }
+  .player img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.45; }
+  .player .play { position:relative; width:84px; height:84px; border-radius:50%; background:rgba(255,255,255,.92); display:grid; place-items:center; font-size:1.8rem; color:var(--walnut); box-shadow:var(--shadow); cursor:pointer; }
+  .player .secure { position:absolute; top:14px; right:14px; background:rgba(0,0,0,.55); color:#fff; font-size:.74rem; padding:5px 12px; border-radius:var(--r-pill); }
+  .player .ctrlbar { position:absolute; left:0; right:0; bottom:0; height:46px; background:linear-gradient(transparent,rgba(0,0,0,.55)); display:flex; align-items:center; gap:12px; padding:0 16px; color:#fff; font-size:.85rem; }
+  .player .ctrlbar .track{ flex:1; height:5px; background:rgba(255,255,255,.35); border-radius:99px; }
+  .player .ctrlbar .track i{ display:block; width:30%; height:100%; background:var(--honey); border-radius:99px; }
+
+  /* Ressources & supports — découpage par lignes (style accueil) */
+  .rows-label { font-family:'DM Sans'; font-size:.78rem; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#aaa; margin:34px 0 6px; }
+  .lesson-rows { border-top:1px solid var(--line); }
+  .lesson-row { display:flex; align-items:center; gap:16px; padding:18px 0; border-bottom:1px solid var(--line); }
+  .lesson-row .ico { flex:none; width:42px; height:42px; border-radius:10px; background:var(--parchment); display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
+  .lesson-row .meta { flex:1; min-width:0; }
+  .lesson-row .meta b { display:block; font-size:.98rem; }
+  .lesson-row .meta small { color:#999; }
+  .lesson-row .track { height:6px; background:#e8e8e8; border-radius:99px; margin-top:8px; }
+  .lesson-row .track i { display:block; width:0; height:100%; background:var(--terracotta); border-radius:99px; }
+  .lesson-row .act { flex:none; }
+
+  /* Sidebar leçons : .side / .side-tag définis dans styles.css (partagé) */
+
+  /* Titre leçon — style « am-browse-title » (Jost géant lavande) */
+  .lesson-title { font-family:'Jost',sans-serif; font-size:clamp(2.6rem,5.5vw,4.4rem); font-weight:400; line-height:1; letter-spacing:-1px; color:var(--honey); margin-bottom:16px; }
+  .lesson-title em { color:var(--terracotta); font-style:italic; }
+
+  .submit-box { background:linear-gradient(135deg,var(--terracotta),var(--terracotta-d)); color:#fff; border-radius:var(--r); padding:24px; margin-top:22px; }
+  .submit-box h3{ color:#fff; }
+
+  .lesson-nav { display:flex; justify-content:space-between; gap:14px; margin-top:40px; }
+  .nav-link { position:relative; padding-bottom:12px; font-family:'DM Sans'; font-weight:800; font-size:.95rem; text-decoration:none; transition:color .15s; }
+  .nav-link::after { content:""; position:absolute; bottom:0; left:0; right:0; height:2px; transition:background .15s, left .2s, right .2s; }
+  /* précédent — noir, trait dépasse à gauche au hover */
+  .nav-prev { color:#111; }
+  .nav-prev::after { background:#111; }
+  .nav-prev:hover { color:var(--terracotta); }
+  .nav-prev:hover::after { left:-20px; background:var(--terracotta); }
+  /* continuer — orange, trait dépasse à droite au hover */
+  .nav-next { color:var(--terracotta); }
+  .nav-next::after { background:var(--terracotta); }
+  .nav-next:hover { color:var(--terracotta-d); }
+  .nav-next:hover::after { right:-20px; background:var(--terracotta-d); }
+</style>
+</head>
+<body>
+
+<div class="note-banner">MAQUETTE — leçon type, vidéo non lisible (placeholder)</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="accueil.html"><img src="assets/logo/magnattitude-logo.png" alt="logo"> celloMagna</a>
+    <nav class="nav-links">
+      <a href="parcours-realiste.html">Mon parcours</a>
+      <a href="lecon.html" class="active">Mes leçons</a>
+      <a href="paliers.html">Mon abonnement</a>
+      <a href="#" class="btn btn-ghost btn-sm">Mon compte</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p style="margin:22px 0 4px; font-size:.88rem; color:#555"><a href="parcours-realiste.html">Mon parcours</a> › Niveau 3 · Élève confirmé·e › <strong>Leçon 4</strong></p>
+
+  <div class="lesson">
+
+    <!-- COLONNE PRINCIPALE -->
+    <div>
+      <h1 class="lesson-title">Le vibrato,<br><em>premiers pas</em></h1>
+      <p class="lead" style="margin:10px 0 22px">Apprenez le mouvement du poignet qui donne vie au son. Capsule de 8 min, à reproduire lentement.</p>
+
+      <div class="player">
+        <img src="assets/photos/cours-individuel.jpg" alt="">
+        <div class="play">▶</div>
+        <div class="secure">🔒 Vidéo protégée · Bunny Stream</div>
+        <div class="ctrlbar"><span>2:24</span><div class="track"><i></i></div><span>8:10</span><span>⚙ HD</span></div>
+      </div>
+
+      <!-- Ressources & supports — par lignes -->
+      <div class="rows-label">Ressources & supports</div>
+      <div class="lesson-rows">
+        <div class="lesson-row">
+          <div class="ico">📄</div>
+          <div class="meta"><b>Partition — Vibrato lent</b><small>PDF · 2 pages</small></div>
+          <a href="#" class="btn btn-ghost btn-sm act">Télécharger</a>
+        </div>
+        <div class="lesson-row">
+          <div class="ico">🎼</div>
+          <div class="meta"><b>Fiche d'exercices</b><small>PDF · 1 page</small></div>
+          <a href="#" class="btn btn-ghost btn-sm act">Télécharger</a>
+        </div>
+        <div class="lesson-row">
+          <div class="ico">🎧</div>
+          <div class="meta"><b>Accompagnement piano — tempo lent</b><div class="track"><i></i></div></div>
+          <span class="btn btn-ghost btn-sm act">▶ Écouter</span>
+        </div>
+      </div>
+
+      <!-- Envoi vidéo (Suivi / Premium) -->
+      <div class="submit-box">
+        <span class="eyebrow" style="color:#fde3da">Palier Suivi & Premium</span>
+        <h3 style="margin:6px 0 8px">Envoyez votre vidéo pour un retour</h3>
+        <p style="color:#fde3da; margin-bottom:16px">Filmez votre vibrato et envoyez-le : une professeure vous répond avec des conseils personnalisés sous quelques jours.</p>
+        <a href="#" class="btn" style="background:#fff;color:var(--terracotta-d)">📹 Déposer ma vidéo</a>
+      </div>
+
+      <!-- Navigation leçon -->
+      <div class="lesson-nav">
+        <a href="lecon.html" class="nav-link nav-prev">← Leçon précédente</a>
+        <a href="lecon.html" class="nav-link nav-next">Marquer terminé & continuer →</a>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="side">
+      <div class="head">Niveau 3 — Élève confirmé·e</div>
+      <div class="side-tags">
+        <a class="side-tag" href="lecon.html">
+          <span class="label"><span class="dot"></span>1 · Les liaisons</span>
+          <span class="tag-arrow">✓</span>
+        </a>
+        <a class="side-tag" href="lecon.html">
+          <span class="label"><span class="dot"></span>2 · Changements d'archet</span>
+          <span class="tag-arrow">✓</span>
+        </a>
+        <a class="side-tag" href="lecon.html">
+          <span class="label"><span class="dot"></span>3 · Nuances</span>
+          <span class="tag-arrow">✓</span>
+        </a>
+        <a class="side-tag current" href="lecon.html">
+          <span class="label"><span class="dot"></span>4 · Le vibrato, premiers pas</span>
+          <span class="tag-arrow">▶</span>
+        </a>
+        <span class="side-tag locked">
+          <span class="label"><span class="dot"></span>5 · Doubles cordes</span>
+          <span class="tag-arrow">🔒</span>
+        </span>
+        <span class="side-tag locked">
+          <span class="label"><span class="dot"></span>6 · Petite pièce de niveau</span>
+          <span class="tag-arrow">🔒</span>
+        </span>
+        <span class="side-tag locked">
+          <span class="label"><span class="dot"></span>Examen → certificat</span>
+          <span class="tag-arrow">🏆</span>
+        </span>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap cols">
+    <div><div class="brand" style="color:#fff; margin-bottom:10px"><img src="assets/logo/magnattitude-logo.png" alt=""> celloMagna</div><p style="color:#888; max-width:34ch; font-size:.92rem">Cours de violoncelle en ligne par l'ASBL MagnAttitude. Grivegnée, Liège.</p></div>
+    <div><h4 style="color:#fff; font-size:1rem; margin-bottom:10px">Naviguer</h4><p><a href="accueil.html">Accueil</a><br><a href="paliers.html">Tarifs</a><br><a href="parcours-realiste.html">Le parcours</a></p></div>
+    <div><h4 style="color:#fff; font-size:1rem; margin-bottom:10px">Contact</h4><p style="color:#888; font-size:.92rem">magnattitudeasbl@gmail.com<br>+32 487 02 82 45</p></div>
+  </div>
+  <div class="wrap" style="margin-top:34px; border-top:1px solid #222; padding-top:18px; font-size:.82rem; color:#666">© 2026 MagnAttitude ASBL — maquette de présentation</div>
+</footer>
+
+</body>
+</html>
